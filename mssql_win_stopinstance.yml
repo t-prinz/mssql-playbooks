@@ -1,0 +1,11 @@
+---
+- name: Stop MS SQL Server service
+  hosts: "{{ hostlist | default('all') }}"
+  vars:
+    sqlsvr_service: MSSQLSERVER
+  tasks:
+
+    - name: Run basic PowerShell script
+      ansible.windows.win_powershell:
+        script: |
+          Stop-Service "{{ sqlsvr_service }}"

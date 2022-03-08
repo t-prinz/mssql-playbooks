@@ -1,0 +1,58 @@
+---
+- name: Install MS SQL Server
+  hosts: "{{ hostlist | default('all') }}"
+  vars:
+#    sqlsvr_install_bundle_dest: C:\Temp\
+    sqlsvr_iso_folder: C:\Users\Administrator\Downloads\
+    sqlsvr_iso_name: SQLServer2019-x64-ENU.iso
+    sqlsvr_configfile_src: "~/Documents/Downloads/MS-SQL-Server/ConfigurationFile.ini"
+    sqlsvr_configfile_folder: C:\Users\Administrator\Downloads\
+    sqlsvr_configfile_name: ConfigurationFile.ini
+  tasks:
+
+#    - name: Copy over installer bundle
+#      ansible.windows.win_copy:
+#        dest: "{{ sqlsvr_install_bundle_dest }}"
+#        src: "{{ sqlsvr_install_bundle }}"
+
+    - name: Copy over configuration file
+      ansible.windows.win_copy:
+        dest: "{{ sqlsvr_configfile_folder }}{{ sqlsvr_configfile_name }}"
+        src: "{{ sqlsvr_configfile_src }}"
+
+    - name: Copy the iso file (wait for up to an hour to complete)
+      ansible.builtin.fetch:
+        dest: "~/Documents/Downloads/MS-SQL-Server/"
+        flat: true
+        src: C:\Users\Administrator\Downloads\SQLServer2019-x64-ENU.iso
+      async: 3600
+      poll: 60
+
+    - name: Ensure MS SQL Server ISO is mounted
+      community.windows.win_disk_image:
+        image_path: "{{ sqlsvr_iso_folder }}{{ sqlsvr_iso_name }}"
+        state: present
+      register: disk_image_out
+
+#    - name: Run installer from mounted ISO
+#      ansible.windows.win_package:
+#        arguments:
+#          - "/ConfigurationFile={{ sqlsvr_configfile_folder }}{{ sqlsvr_configfile_name }}"
+#        path: '{{ disk_image_out.mount_paths[0] }}\setup.exe'
+#        state: present
+##        wait_for_children: true
+#      register: installer_out
+
+#    - name: Print all output
+#      debug:
+#        var: installer_out
+
+#    - name: Print if reboot required
+#      debug:
+#        msg: "Reboot required"
+#      when: installer_out.reboot_required
+
+#    - name: Unmount ISO
+#      community.windows.win_disk_image:
+#        image_path: "{{ sqlsvr_iso_folder }}{{ sqlsvr_iso_name }}"
+#        state: absent
