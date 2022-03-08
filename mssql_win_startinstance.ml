@@ -5,7 +5,7 @@
     sqlsvr_service: MSSQLSERVER
   tasks:
 
-    - name: Run basic PowerShell script
+    - name: Run PowerShell script to start service
       ansible.windows.win_powershell:
         script: |
           Start-Service "{{ sqlsvr_service }}"

@@ -5,7 +5,7 @@
     sqlsvr_service: MSSQLSERVER
   tasks:
 
-    - name: Run basic PowerShell script
+    - name: Run PowerShell script to stop service
       ansible.windows.win_powershell:
         script: |
           Stop-Service "{{ sqlsvr_service }}"
