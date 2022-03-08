@@ -1,0 +1,12 @@
+---
+- name: Copy the installer to the host
+  hosts: "{{ hostlist | default('all') }}"
+  vars:
+    sqlsvr_installer: "~/Documents/Downloads/MS-SQL-Server/SQL2019-SSEI-Eval.exe"
+    sqlsvr_installer_folder: C:\Users\Administrator\Downloads\
+  tasks:
+
+    - name: Copy over installer bundle (this should be the ISO)
+      ansible.windows.win_copy:
+        dest: "{{ sqlsvr_installer_folder }}"
+        src: "{{ sqlsvr_installer }}"

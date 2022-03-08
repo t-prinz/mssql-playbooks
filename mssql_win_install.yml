@@ -2,20 +2,12 @@
 - name: Install MS SQL Server
   hosts: "{{ hostlist | default('all') }}"
   vars:
-    sqlsvr_installer: "~/Documents/Downloads/MS-SQL-Server/SQL2019-SSEI-Eval.exe"
-    sqlsvr_installer_folder: C:\Users\Administrator\Downloads\
-    sqlsvr_installer_name: SQL2019-SSEI-Eval.exe
     sqlsvr_iso_folder: C:\Users\Administrator\Downloads\
     sqlsvr_iso_name: SQLServer2019-x64-ENU.iso
     sqlsvr_configfile: "~/Documents/Downloads/MS-SQL-Server/ConfigurationFile.ini"
     sqlsvr_configfile_folder: C:\Users\Administrator\Downloads\
     sqlsvr_configfile_name: ConfigurationFile.ini
   tasks:
-
-    - name: Copy over installer bundle (this should be the ISO)
-      ansible.windows.win_copy:
-        dest: "{{ sqlsvr_installer_folder }}"
-        src: "{{ sqlsvr_installer }}"
 
     - name: Copy over configuration file
       ansible.windows.win_copy:
