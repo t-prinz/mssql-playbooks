@@ -1,0 +1,11 @@
+---
+
+- name: Install MS SQL Server
+  import_playbook: t_prinz.ms_sqlserver.mssql_win_install.yml
+  vars:
+    hostlist: sqlservers
+    sqlsvr_iso_folder: C:\Users\Administrator\Downloads\
+    sqlsvr_iso_name: SQLServer2019-x64-ENU.iso
+    sqlsvr_configfile: "~/Documents/Downloads/MS-SQL-Server/ConfigurationFile.ini"
+    sqlsvr_configfile_folder: C:\Users\Administrator\Downloads\
+    sqlsvr_configfile_name: ConfigurationFile.ini

@@ -1,0 +1,4 @@
+---
+collections:
+  - name: https://github.com/t-prinz/t_prinz.ms_sqlserver.git
+    type: git

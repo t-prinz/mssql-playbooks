@@ -4,3 +4,5 @@
 
 Install-PackageProvider -Name NuGet -Force
 Install-Module -Name SqlServer -Force
+
+ansible-galaxy collection install -r collections/requirements.yml -p collections
